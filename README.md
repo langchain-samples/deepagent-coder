@@ -4,18 +4,21 @@ This application demonstrates how to use the [deepagents](https://github.com/lan
 to build a coding assistant that can run as a [LangSmith Deployment](https://docs.langchain.com/langsmith/deployments).
 
 
-## Key components
+## Key Components
 
 ### Sandbox
 This agent can write and test code within a [Daytona sandbox](https://www.daytona.io/).
 For simplicity, the agent will return the final code it has written as a message to the end user, but it 
 can iterate on and test the code before deciding it is done. 
 
+We also support using [Runloop](https://www.runloop.ai/) or [Modal](https://modal.com/).
+
+
 ### Skills
 The skills stored in the codebase are uploaded to the sandbox so the agent can use them and run any associated code.
 There are some example skills in this repo.
 
-## How to run
+## How to Run
 
 You will need the following environment variables:
 
