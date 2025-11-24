@@ -18,7 +18,7 @@ model = init_chat_model('openai:gpt-5-mini')
 def get_system_prompt() -> str:
     """Get the base system prompt for the agent.
     Returns:
-        The system prompt string (without agent.md content)
+        The system prompt string (without memory content)
     """
 
     # Can modify this if you are using a provider other than Daytona
