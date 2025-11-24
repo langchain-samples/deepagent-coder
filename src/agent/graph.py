@@ -3,10 +3,14 @@
 Returns a predefined response. Replace logic and configuration as needed.
 """
 from contextlib import asynccontextmanager
+from dataclasses import dataclass
 
 from deepagents import create_deep_agent
+from deepagents.backends import CompositeBackend, StoreBackend
 from langchain.chat_models import init_chat_model
+from langchain_core.runnables import RunnableConfig
 
+from agent.memory_middleware import AgentMemoryMiddleware
 from agent.sandbox import create_daytona_sandbox
 from agent.skills_middleware import SkillsMiddleware
 from agent.tools import http_request, fetch_url, web_search
@@ -73,7 +77,7 @@ def get_system_prompt() -> str:
         The todo list is a planning tool - use it judiciously to avoid overwhelming the user with excessive task tracking.
     
     ### Final output
-    Return your final code string as a message to the end user
+    Return your final code string as a message to the end user. Format any code inside a markdown-style code block.
     """
         )
 
@@ -82,14 +86,27 @@ def get_system_prompt() -> str:
 agent_tools = [http_request, fetch_url, web_search]
 
 
+@dataclass
+class ContextSchema:
+    # We only need the assistant ID that is automatically included
+    pass
+
+
 @asynccontextmanager
-async def agent():
+async def agent(config: RunnableConfig):
+    assistant_id = config['configurable'].get('assistant_id')
+    memory_middleware = AgentMemoryMiddleware(assistant_id)
+    skills_middleware = SkillsMiddleware()
     async with create_daytona_sandbox() as sandbox_backend:
+        composite_backend = lambda rt: CompositeBackend(
+            default=sandbox_backend,
+            routes={"/memories/": StoreBackend(rt)}
+        )
         agent = create_deep_agent(
             model=model,
             system_prompt=get_system_prompt(),
-            middleware=[SkillsMiddleware()],
+            middleware=[memory_middleware, skills_middleware],
             tools=agent_tools,
-            backend=sandbox_backend,
+            backend=composite_backend,
         ).with_config({"recursion_limit": 1000})
         yield agent

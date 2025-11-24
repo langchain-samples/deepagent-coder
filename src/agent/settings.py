@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     daytona_api_key: Optional[str] = Field(default=None, validation_alias="DAYTONA_API_KEY")
     daytona_base_path: Path = "/home/daytona"
     skills_base_path: Path = os.path.join(daytona_base_path, "skills")
+    memories_base_path_template: str = "/memories/{assistant_id}/"
     max_skill_file_size: int = 10 * 1024 * 1024 # 10 MB
 
 settings = Settings()
