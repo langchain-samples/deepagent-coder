@@ -9,6 +9,8 @@ and managed infrastructure to run such a complicated agent scalably and reliably
 of its work. This repo shows how you can combine these two LangChain offerings to design and deploy a software
 engineering agent that can do useful work in the unique context of your organization. 
 
+You can use the agent via a chat interface - it is prompted to return its final code output in its response
+
 ## Key Components
 
 ### Memory
