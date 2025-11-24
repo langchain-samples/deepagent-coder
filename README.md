@@ -3,6 +3,11 @@
 This application demonstrates how to use the [deepagents](https://github.com/langchain-ai/deepagents) package
 to build a coding assistant that can run as a [LangSmith Deployment](https://docs.langchain.com/langsmith/deployments).
 
+`deepagents` gives you a powerful harness for creating agents that can handle complex, multi-step tasks, such as 
+software engineering projects. The LangSmith Deployment platform gives you a production-ready server
+and managed infrastructure to run such a complicated agent scalably and reliably as you increase the scope 
+of its work. This repo shows how you can combine these two LangChain offerings to design and deploy a software
+engineering agent that can do useful work in the unique context of your organization. 
 
 ## Key Components
 
@@ -20,7 +25,8 @@ This agent can write and test code within a [Daytona sandbox](https://www.dayton
 For simplicity, the agent will return the final code it has written as a message to the end user, but it 
 can iterate on and test the code before deciding it is done. 
 
-We also support using [Runloop](https://www.runloop.ai/) or [Modal](https://modal.com/).
+You can modify this code to instead use [Runloop](https://www.runloop.ai/) or [Modal](https://modal.com/), 
+or implement your own sandbox.
 
 ## How to Run
 
