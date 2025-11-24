@@ -1,4 +1,4 @@
-"""Custom tools for the CLI agent."""
+"""Tools for the coder agent and any subagents"""
 
 from typing import Any, Literal
 

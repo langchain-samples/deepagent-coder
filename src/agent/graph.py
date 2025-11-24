@@ -1,7 +1,3 @@
-"""LangGraph single-node graph template.
-
-Returns a predefined response. Replace logic and configuration as needed.
-"""
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 
