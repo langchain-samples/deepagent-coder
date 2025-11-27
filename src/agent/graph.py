@@ -94,6 +94,8 @@ async def agent(config: RunnableConfig):
     memory_middleware = AgentMemoryMiddleware(assistant_id)
     skills_middleware = SkillsMiddleware()
     async with create_daytona_sandbox() as sandbox_backend:
+        # Set up a composite back end where most operations occur in the sandbox,
+        # but memories are pulled from LangSmith's managed long-term memory store
         composite_backend = lambda rt: CompositeBackend(
             default=sandbox_backend,
             routes={"/memories/": StoreBackend(rt)}
